@@ -59,7 +59,15 @@ const login = async (agent, username, password) => {
         expect(res.statusCode).toBe(200);
       });
 
-      
+      test("test  for admin signout", async () => {
+        let res = await agent.get("/elections");
+        expect(res.statusCode).toBe(200);
+        res = await agent.get("/signout");
+        expect(res.statusCode).toBe(302);
+        res = await agent.get("/elections");
+        expect(res.statusCode).toBe(302);
+      });
+
       
       test("test to create election", async () => {
         const agent = request.agent(server);
