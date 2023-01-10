@@ -285,25 +285,7 @@ app.get(
   );
 
   
-  app.post(
-    "/elections/:id/questions/create",
-    connectEnsureLogin.ensureLoggedIn(),
-    async (request, response) => {
-      try {
-        const question = await Question.addQuestion({
-          questionName: request.body.questionName,
-          description: request.body.description,
-          electionId: request.params.id,
-        });
-        return response.redirect(
-          `/elections/${request.params.id}/questions/${question.id}`
-        );
-      } catch (error) {
-        console.log(error);
-        return response.status(422).json(error);
-      }
-    }
-  );
+  
 
 
 
