@@ -80,9 +80,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     description: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Question',
-  });
+  }, 
   return Question;
 };
