@@ -22,6 +22,21 @@ const login = async (agent, username, password) => {
     });
   };
 
+  describe( "Online Election Application Test Suite" , () => {
+
+    beforeAll(async () => {
+        await db.sequelize.sync({ force: true });
+        server = app.listen(4000, () => {});
+        agent = request.agent(server);
+      });
+      afterAll(async () => {
+        try {
+          await db.sequelize.close();
+          server.close();
+        } catch (error) {
+          console.log(error);
+        }
+      });
 
 
       test("To signup as a new admin", async () => {
