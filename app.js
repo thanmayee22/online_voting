@@ -226,34 +226,29 @@ app.get(
     }
   );
   
-  
-
-
   app.get(
-    "/elections/:id/questions",
+    "/elections/:id",
     connectEnsureLogin.ensureLoggedIn(),
     async (request, response) => {
       try {
         const election = await Election.retrieveElection(request.params.id);
-        const questions = await Question.getQuestions(request.params.id);
-        if (request.accepts("html")) {
-          return response.render("display_questions", {
-            title: election.electionName,
-            id: request.params.id,
-            questions: questions,
-            csrfToken: request.csrfToken(),
-          });
-        } else {
-          return response.json({
-            questions,
-          });
-        }
+        const numberOfQuestions = await Question.countQuestions(
+          request.params.id
+        );
+        return response.render("election_homepage", {
+          id: request.params.id,
+          title: election.electionName,
+          noq: numberOfQuestions,
+        });
       } catch (error) {
         console.log(error);
         return response.status(422).json(error);
       }
     }
   );
+
+
+  
 
   app.get(
     "/elections/:id/questions/create",
