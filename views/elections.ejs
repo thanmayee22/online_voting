@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title><%= title %></title>
+</head>
+<body class="bg-gray-50">
+    <div class="grid grid-cols-6">
+    <div class="my-6 mx-10 col-span-2 col-start-3">
+        <%- include('header.ejs') %>
+        <h3 class="text-4xl my-4 font-medium">Hello, <%= userName %></h3>
+        <a href="/signout" class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2">Sign out</a>
+        <div>
+            <% if (messages.success) { %>
+                <p class="bg-purple-100 m-3 list-none rounded-md px-4 py-2"><%= messages.success %></p>
+            <% } %>
+        </div>
+        <div class="flex gap-2 py-4 justify-between">
+            <h5 class="text-2xl">Your Elections</h5>
+            <p class="text-purple-600"><%= (displayElections.length==0)?"You haven't created any elections yet!":"" %></p>
+            <div class="bg-green-600 rounded w-fit px-2 py-1 hover:bg-green">
+                <a href="/elections/create" class="text-white">Create New Election</a>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <div class="mx-4">  
+                
+                <ol class="list-decimal">
+                    <% for (let i=0; i< displayElections.length; i++) { %>
+                        <li>
+                            <div class="flex items-center w-fit my-2 px-2 py-1 rounded hover:bg-white">
+                                <a href="/elections/<%= displayElections[i].id %>" class="m-2 text-sm text-blue-800 "><%= displayElections[i].electionName %></a>
+                            </div>
+                        </li>
+                    <% } %>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

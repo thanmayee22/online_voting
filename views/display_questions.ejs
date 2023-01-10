@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+    </script>
+    <title><%= title %></title>
+</head>
+<body class="bg-gray-50">
+    <div class="text-center"> <%- include('header.ejs') %> </div>
+    <div class="flex gap-1 mx-10 mt-6 bg-gray-50">
+        
+        <a href="/elections" class="text-purple-800 hover:text-purple-600">All Elections</a>
+        <span>></span>
+        <a href="/elections/<%= id %>/" class="text-purple-800 hover:text-purple-600">Election</a>
+    </div>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <div class="my-6 mx-10">
+        <div class="flex gap-2 py-4 justify-between">
+            <h5 class=" text-orange-400 text-2xl"><%= title %> - Questions</h5>
+            <div class="bg-green-600 rounded w-fit px-2 py-1 hover:bg-black">
+                <a href="/elections/<%= id %>/questions/create" class="text-white">Add New Question</a>
+            </div>
+        </div>
+            <div>
+                <p class="text-gray-600"><%= (questions.length==0)?"You haven't added any questions yet!":"" %></p>
+            </div>
+    </div>
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="overflow-hidden">
+              <table class="min-w-full">
+                <thead class="border-b">
+                  <tr>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                      Q No
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                      Question
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                      description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% for (let i=0; i<questions.length; i++) { %>
+                  <tr class="border-b">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= i+1 %></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <a href="/elections/<%= id %>/questions/<%= questions[i].id %>"><%= questions[i].questionName %></a>
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <%= questions[i].description %>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
