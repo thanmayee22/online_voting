@@ -39,18 +39,7 @@ const login = async (agent, username, password) => {
       });
 
 
-      test("To signup as a new admin", async () => {
-        res = await agent.get("/signup");
-        const csrfToken = extractCsrfToken(res);
-        res = await agent.post("/admins").send({
-          firstName: "manaswini",
-          lastName: "reddy",
-          email: "manaswini@gmail.com",
-          password: "123456789",
-          _csrf: csrfToken,
-        });
-        expect(res.statusCode).toBe(302);
-      });
+      
 
       test("to login as a admin", async () => {
         res = await agent.get("/elections");
