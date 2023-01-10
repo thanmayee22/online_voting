@@ -248,7 +248,31 @@ app.get(
   );
 
 
-  
+  app.get(
+    "/elections/:id/questions",
+    connectEnsureLogin.ensureLoggedIn(),
+    async (request, response) => {
+      try {
+        const election = await Election.retrieveElection(request.params.id);
+        const questions = await Question.getQuestions(request.params.id);
+        if (request.accepts("html")) {
+          return response.render("display_questions", {
+            title: election.electionName,
+            id: request.params.id,
+            questions: questions,
+            csrfToken: request.csrfToken(),
+          });
+        } else {
+          return response.json({
+            questions,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        return response.status(422).json(error);
+      }
+    }
+  );
 
   app.get(
     "/elections/:id/questions/create",
