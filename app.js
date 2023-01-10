@@ -205,26 +205,7 @@ app.get(
     }
   );
 
-app.post(
-    "/elections",
-    connectEnsureLogin.ensureLoggedIn(),
-    async (request, response) => {
-      if (request.body.electionName.length < 5) {
-        request.flash("error", "Election name should be atleast 5 characters");
-        return response.redirect("/elections/create");
-      }
-      try {
-        await Election.addNewElection({
-          electionName: request.body.electionName,
-          adminId: request.user.id,
-        });
-        return response.redirect("/elections");
-      } catch (error) {
-        console.log(error);
-        return response.status(422).json(error);
-      }
-    }
-  );
+
   
   app.get(
     "/elections/:id",
