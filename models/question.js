@@ -41,7 +41,13 @@ module.exports = (sequelize, DataTypes) => {
       );
     }
 
-    
+    static addQuestion({ questionName, description, electionId }) {
+      return this.create({
+        questionName,
+        description,
+        electionId,
+      });
+    }
 
     static async getQuestion(id) {
       return await this.findOne({
