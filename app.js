@@ -226,26 +226,7 @@ app.get(
     }
   );
   
-  app.get(
-    "/elections/:id",
-    connectEnsureLogin.ensureLoggedIn(),
-    async (request, response) => {
-      try {
-        const election = await Election.retrieveElection(request.params.id);
-        const numberOfQuestions = await Question.countQuestions(
-          request.params.id
-        );
-        return response.render("election_homepage", {
-          id: request.params.id,
-          title: election.electionName,
-          noq: numberOfQuestions,
-        });
-      } catch (error) {
-        console.log(error);
-        return response.status(422).json(error);
-      }
-    }
-  );
+  
 
 
   app.get(
