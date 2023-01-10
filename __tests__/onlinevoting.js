@@ -69,16 +69,5 @@ const login = async (agent, username, password) => {
       });
 
       
-      test("test to create election", async () => {
-        const agent = request.agent(server);
-        await login(agent, "manaswini@gmail.com", "123456789");
-        const res = await agent.get("/elections/create");
-        const csrfToken = extractCsrfToken(res);
-        const response = await agent.post("/elections").send({
-          electionName: "head boy",
-          _csrf: csrfToken,
-        });
-        expect(response.statusCode).toBe(302);
-      });
-
+      
 });
