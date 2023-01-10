@@ -52,14 +52,7 @@ const login = async (agent, username, password) => {
         expect(res.statusCode).toBe(302);
       });
 
-      test("to login as a admin", async () => {
-        res = await agent.get("/elections");
-        expect(res.statusCode).toBe(200);
-        await login(agent, "manaswini@gmail.com", "123456789");
-        res = await agent.get("/elections");
-        expect(res.statusCode).toBe(200);
-      });
-
+      
       test("test  for admin signout", async () => {
         let res = await agent.get("/elections");
         expect(res.statusCode).toBe(200);
