@@ -274,17 +274,7 @@ app.get(
     }
   );
 
-  app.get(
-    "/elections/:id/questions/create",
-    connectEnsureLogin.ensureLoggedIn(),
-    async (request, response) => {
-      return response.render("createnew_ques", {
-        id: request.params.id,
-        csrfToken: request.csrfToken(),
-      });
-    }
-  );
-
+  
   app.post(
     "/elections/:id/questions/create",
     connectEnsureLogin.ensureLoggedIn(),
