@@ -14,9 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Question.belongsTo(models.Election, {
         foreignKey: "electionId",
       });
-      Question.hasMany(models.Option , {
-        foreignKey: "questionId",
-      });
+      
     }
     static async countQuestions(electionId) {
       return await this.count({
